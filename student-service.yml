@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: student-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/Curd_APP
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.web: DEBUG
+#    org.springframework.data.mongodb: DEBUG
+#    com.netflix.discovery: DEBUG
+#    CurdApp.example.StudentService: DEBUG
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
