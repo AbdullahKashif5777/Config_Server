@@ -1,0 +1,39 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: student-service
+          uri: http://localhost:8081/students
+          predicates:
+            - Path=/students/**
+        - id: college-service
+          uri: lb://COLLEGE-SERVICE
+          predicates:
+            - Path=/colleges/**
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+#logging:
+#  level:
+#    root: INFO
+#    org.springframework.cloud.gateway: DEBUG
+#    com.netflix.discovery: DEBUG
+#    CurdApp.example.ApiGateway: DEBUG
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+#  file:
+#    name: logs/api-gateway.log
+#    max-size: 10MB
+#    max-history: 7
